@@ -16,10 +16,14 @@ class FirmwareController extends Controller
         return view("download");
     }
 
+//Uploadinf firmware to the server
     function upload(Request $request){
-        $request->file('firmware')->store('firmware');
+        $filename = rand(1, 100);
+        $request->file('firmware')->storeAs('firmware', $filename);
         return view("convert");
-        echo shell_exec('sh /var/www/hex-conv/scripts/convert.sh');
+        //junky scrip kiddo shell launch
+        $filename=escapeshellarg($filename);
+        echo shell_exec("sh /var/www/hex-conv/scripts/convert.sh $filename");
         sleep(5);
         return view('donwload');
     }
