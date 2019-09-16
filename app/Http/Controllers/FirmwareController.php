@@ -19,5 +19,8 @@ class FirmwareController extends Controller
     function upload(Request $request){
         $request->file('firmware')->store('firmware');
         return view("convert");
+        echo shell_exec('sh /var/www/hex-conv/scripts/convert.sh');
+        sleep(5);
+        return view('donwload');
     }
 }
