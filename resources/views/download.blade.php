@@ -27,7 +27,7 @@
               </label>
             </div>
             <button class="button is-primary" type="submit">Convert</button>
-            <a class="button is-primary" disabled>Download .bin</a>
+            <a class="button is-primary">Download .bin</a>
           </div>
         </nav>
       </section>
