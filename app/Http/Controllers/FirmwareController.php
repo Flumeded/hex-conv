@@ -22,8 +22,8 @@ class FirmwareController extends Controller
         $request->file('firmware')->storeAs('firmware', $filename);
         return view("convert");
         //junky scrip kiddo shell launch
-        $filename=escapeshellarg($filename);
-        echo shell_exec("sh /var/www/hex-conv/scripts/convert.sh $filename");
+        
+        shell_exec("/var/www/hex-conv/scripts/convert.sh '".$filename."'");
         sleep(5);
         return view('donwload');
     }
