@@ -38,4 +38,6 @@ class FirmwareController extends Controller
         
         dd("output: $output. Success: " . ($exitCode === 0));
     }
+
+}
 }
