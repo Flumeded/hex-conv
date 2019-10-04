@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 class FirmwareController extends Controller
 {
 
-/  public function upload(Request $Request)
+ public function upload(Request $Request)
 {
 
     $Session = $Request->session();
