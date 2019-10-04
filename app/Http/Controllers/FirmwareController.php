@@ -18,7 +18,7 @@ class FirmwareController extends Controller
     $key = $Session->get("uniqueId");
 
     if (empty($key)) {
-        $key = UUID::v4();
+        $key = Uuid::generate(4);
         $Session->put("uniqueId", $key);
 
         $filename = $key . '.tmp';
