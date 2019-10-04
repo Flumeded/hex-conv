@@ -3,28 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
+
+
 
 class FirmwareController extends Controller
 {
 
-    public function convert(){
-        return view("convert");
-    }
+/  public function upload(Request $Request)
+{
 
+    $Session = $Request->session();
 
-    public function download(){
-        return view("download");
-    }
+    $key = $Session->get("uniqueId");
 
-//Uploadinf firmware to the server
-    function upload(Request $request){
-        $filename = rand(1, 100);
-        $request->file('firmware')->storeAs('firmware', $filename);
-        return view("convert");
-        //junky scrip kiddo shell launch
+    if (empty($key)) {
+        $key = UUID::v4();
+        $Session->put("uniqueId", $key);
+
+        $filename = $key . '.tmp';
+
+        $File = $Request->file('uploadFormKey');
+
+        if ($File) {
+            $fullFilename = $File->move('myDirectory', $filename)->getFilename();
+        } else {
+            throw new FileNotFoundException('upl');
+        }
         
-        shell_exec("/var/www/hex-conv/scripts/convert.sh '".$filename."'");
-        sleep(5);
-        return view('donwload');
+        $cmdTpl = 'command %s';
+        
+        $cmd = sprintf($cmdTpl, escapeshellarg($fullFilename));
+        exec($cmd, $output, $exitCode);
+        
+        dd("output: $output. Success: " . ($exitCode === 0));
     }
 }
