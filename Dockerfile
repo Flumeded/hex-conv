@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
     avrdude \
     flex \
     byacc \
-    bison \ ​
+    bison \
     openocd
 
 # Clear cache
