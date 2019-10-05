@@ -27,11 +27,10 @@ class FirmwareController extends Controller
 		$filename = $key;
 		$downloadDir = 'firmwares';
 		$requestKey = 'firmware';
-		$File = $Request->file($requestKey);
-		$fullFilename = $File->storeAs($downloadDir, $filename);
-		$Request->file($requestKey)->storeAs($downloadDir, $filename);
-		$cmdTpl = './convert.sh %s';
-		$cmd = sprintf($cmdTpl, escapeshellarg($filename));
+		$fullFilename = "../storage/app/" . $Request->file($requestKey)->storeAs($downloadDir, $filename);
+		//Assembling full execution command string with relative path
+		$cmdTpl = '/usr/bin/avr-objcopy -I ihex %s -O binary %s.bin';
+		$cmd = sprintf($cmdTpl, escapeshellarg($fullFilename), escapeshellarg($fullFilename));
 		exec($cmd, $output, $exitCode);
 	}
 
