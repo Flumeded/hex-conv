@@ -12,36 +12,27 @@ use Webpatser\Uuid\Uuid;
 class FirmwareController extends Controller
 {
 
- public function upload(Request $Request)
-{
+	public function upload(Request $Request)
+	{
 
-    $Session = $Request->session();
+		$Session = $Request->session();
 
-    $key = $Session->get("uniqueId");
+		$key = $Session->get("uniqueId");
 
-    if (empty($key)) {
-        $key = Uuid::generate(4);
-        $Session->put("uniqueId", $key);
-    }
+		if (empty($key)) {
+			$key = Uuid::generate(4);
+			$Session->put("uniqueId", $key);
+		}
 
-
-    $filename = $key;
-    $downloadDir = 'firmwares';
-    $requestKey = 'firmware';
-    $File = $Request->file($requestKey);
-    $fullFilename = $File->storeAs($downloadDir, $filename);
-    $Request->file($requestKey)->storeAs($downloadDir, $filename);
-
-
-    $dirContent = scandir('..');
-
-    $cmdTpl = './convert.sh %s';
-    $cmd = sprintf($cmdTpl, escapeshellarg($filename));
-    exec($cmd, $output, $exitCode);
-    //dd("output: $output. Success: " . ($exitCode === 0));
-    }
-
-
-
+		$filename = $key;
+		$downloadDir = 'firmwares';
+		$requestKey = 'firmware';
+		$File = $Request->file($requestKey);
+		$fullFilename = $File->storeAs($downloadDir, $filename);
+		$Request->file($requestKey)->storeAs($downloadDir, $filename);
+		$cmdTpl = './convert.sh %s';
+		$cmd = sprintf($cmdTpl, escapeshellarg($filename));
+		exec($cmd, $output, $exitCode);
+	}
 
 }
