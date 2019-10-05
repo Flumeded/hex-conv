@@ -20,12 +20,12 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    gcc-arm-none-eabi \
+    avr-libc \ 
     binutils-arm-none-eabi \
-    gdb-arm-none-eabi \
-    binutils \
+    binutils-avr \
+	gcc-arm-none-eabi \
+    libnewlib-arm-none-eabi \
     gcc-avr \
-    avr-libc \
     uisp \
     avrdude \
     flex \
