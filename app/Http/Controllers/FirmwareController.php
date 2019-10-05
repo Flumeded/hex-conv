@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Process\Process;
 use Webpatser\Uuid\Uuid;
 
@@ -21,24 +22,26 @@ class FirmwareController extends Controller
     if (empty($key)) {
         $key = Uuid::generate(4);
         $Session->put("uniqueId", $key);
-
-        $filename = $key . '.tmp';
-
-        $File = $Request->file('uploadFormKey');
-
-        if ($File) {
-            $fullFilename = $File->move('myDirectory', $filename)->getFilename();
-        } else {
-            throw new FileNotFoundException('upl');
-        }
-        
-        $cmdTpl = 'command %s';
-        
-        $cmd = sprintf($cmdTpl, escapeshellarg($fullFilename));
-        exec($cmd, $output, $exitCode);
-        
-        dd("output: $output. Success: " . ($exitCode === 0));
     }
 
-}
+
+    $filename = $key;
+    $downloadDir = 'firmwares';
+    $requestKey = 'firmware';
+    $File = $Request->file($requestKey);
+    $fullFilename = $File->storeAs($downloadDir, $filename);
+    $Request->file($requestKey)->storeAs($downloadDir, $filename);
+
+
+    $dirContent = scandir('..');
+
+    $cmdTpl = './convert.sh %s';
+    $cmd = sprintf($cmdTpl, escapeshellarg($filename));
+    exec($cmd, $output, $exitCode);
+    //dd("output: $output. Success: " . ($exitCode === 0));
+    }
+
+
+
+
 }
