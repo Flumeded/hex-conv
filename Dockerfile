@@ -23,6 +23,14 @@ RUN apt-get update && apt-get install -y \
     gcc-arm-none-eabi \
     binutils-arm-none-eabi \
     gdb-arm-none-eabi \
+    binutils \
+    gcc-avr \
+    avr-libc \
+    uisp \
+    avrdude \
+    flex \
+    byacc \
+    bison \ ​
     openocd
 
 # Clear cache
