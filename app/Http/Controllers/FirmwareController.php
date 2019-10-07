@@ -35,7 +35,7 @@ class FirmwareController extends Controller
 		$cmdTpl = '/usr/bin/avr-objcopy -I ihex %s -O binary %s.bin';
 		$cmd = sprintf($cmdTpl, escapeshellarg($fullFilePath), escapeshellarg($fullFilePath));
 		exec($cmd, $output, $exitCode);
-        return response()->download ($fullFilePath . '.bin');
+        return response()->download ($fullFilePath . '.bin', 'FLASH.bin');
 
 	}
 
