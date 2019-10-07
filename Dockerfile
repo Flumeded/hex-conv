@@ -15,12 +15,12 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     locales \
     zip \
-    jpegoptim optipng pngquant gifsicle \
+    emacsjpegoptim optipng pngquant gifsicle \
     vim \
     unzip \
     git \
     curl \
-    avr-libc \ 
+    avr-libc \
     binutils-arm-none-eabi \
     binutils-avr \
 	gcc-arm-none-eabi \

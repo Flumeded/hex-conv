@@ -9,6 +9,18 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+Vue.use(VueAxios, axios);
+
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+const router = new VueRouter({ mode: 'history'});
+const app = new Vue(Vue.util.extend({ router })).$mount('#app');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -26,26 +38,26 @@ const app = new Vue({
 document.addEventListener('DOMContentLoaded', function () {
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-    
+
     // Check if there are any navbar burgers
     if ($navbarBurgers.length > 0) {
-        
+
         // Add a click event on each of them
         $navbarBurgers.forEach(function ($el) {
             $el.addEventListener('click', function () {
-                
+
                 // Get the target from the "data-target" attribute
                 let target = $el.dataset.target;
                 let $target = document.getElementById(target);
-                
+
                 // Toggle the class on both the "navbar-burger" and the "navbar-menu"
                 $el.classList.toggle('is-active');
                 $target.classList.toggle('is-active');
-                
+
             });
         });
     }
-    
+
 });
 
 

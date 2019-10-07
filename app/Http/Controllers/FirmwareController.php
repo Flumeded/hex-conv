@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Process\Process;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -25,13 +27,16 @@ class FirmwareController extends Controller
 		}
 
 		$filename = $key;
-		$downloadDir = 'firmwares';
+		$downloadDir = 'firmwares/%s';
+		$userStorageDir = sprintf($downloadDir, $filename);
 		$requestKey = 'firmware';
-		$fullFilename = "../storage/app/" . $Request->file($requestKey)->storeAs($downloadDir, $filename);
+		$fullFilePath = "../storage/app/" . $Request->file($requestKey)->storeAs($userStorageDir, $filename);
 		//Assembling full execution command string with relative path
 		$cmdTpl = '/usr/bin/avr-objcopy -I ihex %s -O binary %s.bin';
-		$cmd = sprintf($cmdTpl, escapeshellarg($fullFilename), escapeshellarg($fullFilename));
+		$cmd = sprintf($cmdTpl, escapeshellarg($fullFilePath), escapeshellarg($fullFilePath));
 		exec($cmd, $output, $exitCode);
+        return response()->download ($fullFilePath . '.bin');
+
 	}
 
 }

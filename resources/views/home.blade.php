@@ -2,11 +2,12 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>hex-conv</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>hex-conv</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
 </head>
 
 <body>
@@ -28,25 +29,17 @@
             </span>
                     </label>
                 </div>
-                <button class="button is-primary" type="submit">Convert</button>
-                <a class="button is-primary" disabled>Download .bin</a>
+                <button class="button is-primary" id="convert" type="submit">Convert</button>
+
             </div>
         </nav>
     </section>
 </form>
-
-
-
-
-
 </body>
-
 </html>
 
 
 
 
 
-</body>
 
-</html>
