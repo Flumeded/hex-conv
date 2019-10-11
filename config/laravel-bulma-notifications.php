@@ -17,7 +17,7 @@ return [
     'cookie' => [
 
         //Enable/Disable cookie box on the application
-        'enabled' => true,
+        'enabled' => false,
 
         // In case of translations just add translatable string
         'body' => 'Using cookies enables us to optimally design and continually improve our website. If you continue using the website, you automatically give your consent to receive cookies from it.',
