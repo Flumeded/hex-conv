@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('convert', 'FirmwareController@convert');
 Route::get('download', 'FirmwareController@download');
 Route::post('upload', 'FirmwareController@upload');
+Route::get('upload', function () {
+    return redirect()->to('/');
+});
